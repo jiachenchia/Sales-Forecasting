@@ -1,24 +1,18 @@
-# Sales-Forecasting - Every single file will already have a brief description of what it contains at the top of the Jupyter notebook)
-
-🔵 "Master" data 
-🟢 Can scrape/recreate
-🔴 Need manually recreate to replicate
+# Sales-Forecasting-Project
 
  --- 
  
-1. Create Master Weather + Store Subcluster + Holiday + Sales.ipynb - Jupyter notebook to create "Master Weather + Store Subcluster + Holiday + Sales" csv file in LH_External_Data in the Lakehouse.
-- 🔵 Subcluster data: "Master Store Subcluster" in Lakehouse -> AI_Sandbox -> LH_External_Data -> tables
-- 🟢 Weather data: can scrape using "Scrape Weather FINAL.ipynb" in this repo
-- 🔴 Public Holiday data: "Jia Chen Public Holiday data Final.csv" in Lakehouse -> AI_Sandbox -> LH_External_Data -> files OR in Microsoft Team Planner -> FM OPS BI -> Sales Forecasting
-- 🔵 Sales data: "Daily Sales - Store & VM" in Lakehouse -> AI_Sandbox -> LH_External_Data -> tables
-- Need to set where does the code keep output file "Master Weather + Store Subcluster + Holiday + Sales.csv".
+1. Create Master Weather + Store Subcluster + Holiday + Sales.ipynb
+- Select and Rename columns
+- Ensure correct format and dtypes of columns
+- Filtering out outliers and data not of interest
+- Merging spreadsheets
 
 ---
 
-2. Create Public Holiday Final.ipynb - Jupyter notebook that creates "Public Holiday (before manual edit).xlsx", which is the public holiday data before manual processing.
-- 🔴 downloading html file for the years you want (I have completed for 2023-2026) from website "https://www.timeanddate.com/holidays/malaysia/" -> this will be cleaned -> need to set where the cleaned csv will be kept
-- 🔴 loading up the cleaned csv files (you saved above) to be combined and merged with Amin's "Master Holiday.csv" file in Lakehouse -> AI_Sandbox -> LH_External_Data -> tables, then you will get a file "Scraped + Master Holiday with Date.csv" file, which you need to manually filter, e.g putting actual ph as 0 and replacement ph as 0.
-- 🔴 loading up your manually filtered csv file to generate rows for +-7 days for each holiday add save file "Public Holiday (before manual edit).xlsx" to be manually filtered again.
+2. Create Public Holiday Final.ipynb
+- Loading downloaded html file from website
+- 
 
 ---
 
