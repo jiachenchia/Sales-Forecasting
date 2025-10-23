@@ -3,28 +3,30 @@
  --- 
  
 1. Create Master Weather + Store Subcluster + Holiday + Sales.ipynb
-- Select and Rename columns
-- Ensure correct format and dtypes of columns
-- Filtering out outliers and data not of interest
-- Merging spreadsheets
+- Data cleaning: selecting and renaming columns, ensuring that columns have the correct format and dtypes, filtering out outliers and data not of interest
+- Merging spreadsheets to create the target dataset to apply Machine Learning
 
 ---
 
 2. Create Public Holiday Final.ipynb
 - Loading downloaded html file from website
-- 
+- Data cleaning: selecting columns, building dataframes (using Pandas), manipulating column names
+- Merging data from different years to form final public holiday data
 
 ---
 
-3. Daily Sales Supervised ML with Dupe Dates.ipynb - Jupyter notebook that analyses public holiday, subcluster, weather and sales data with multiple supervised ML models such as XGBoost, LightGBM and Neural Network.
-- 🔵 df: "Master Weather + Store Subcluster + Holiday + Sales" csv file in Lakehouse -> AI_Sandbox -> LH_External_Data -> files
+3. Daily Sales Supervised ML with Dupe Dates.ipynb (analysing how public holiday, store subcluster, weather and historical sales data influence sales with multiple supervised ML models)
+- Loading dataset created from 1.
+- Data cleaning: labelling categories and applying labelencoder(), ensuring data in specific columns have the correct dtypes, spliting columns into "features" and "target"
+- Implemented supervised ML models (Polynomial regression, XGBoost Regressor, LightGBM, Feed Forward Neural Network)
+*used train_test_split() on dataset, fit the models and compared model predictions to testing data -> analysing evaluation metrics, implementing GridSearchCV for hyperparameter tuning -> showing how much it improved the model, plot feature importance table and used it to eliminate zero-importance columns, built an Embedding and Dense Model, implemented regularisation techniques such as ReduceLROnPlateau() and EarlyStopping(), Plotted a Loss Curve Plot that compares training with validation loss
 
 ---
 
-4. DAILY Sales Weather Project.ipynb - Jupyter notebook to calculate hourly correlation between sales and weather with a few ML models
-- 🔵 Store data: "Master Store" in Lakehouse -> AI_Sandbox -> LH_External_Data -> tables
-- 🔵 Daily Sales data: (I filtered out only May 2025 data from "Hourly Sales - Store & VM" in Lakehouse -> AI_Sandbox -> LH_External_Data -> tables)
-- 🟢 Weather data: can scrape using "Scrape Weather FINAL.ipynb" in this repo
+4. DAILY Sales Weather Project.ipynb - Calculate daily correlation between sales and weather with a few ML models
+- Data cleaning: filtering outliers, manipulating store data, implementing SMOTE (to address 13:1 disproportional data), merging dataframes
+- Created a correlation chart with a conclusion
+- Experimented with ML models such as XGBoost and a first attempt of a Multi Layer Perceptrons Neural Network (which was clearly underfitting - led me to believe that weather was insufficient to predict sales data)
 
 ---
 
