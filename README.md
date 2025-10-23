@@ -1,22 +1,24 @@
 # Sales-Forecasting-Project
 
  --- 
+
+ Key Libraries used:
+ - pandas, numpy, scikit learn
+
+ ---
  
 1. Create Master Weather + Store Subcluster + Holiday + Sales.ipynb
-- Data cleaning: selecting and renaming columns, ensuring that columns have the correct format and dtypes, filtering out outliers and data not of interest
-- Merging spreadsheets to create the target dataset to apply Machine Learning
+- Data cleaning: selecting and renaming columns, ensuring that columns have the correct format and dtypes, filtering out outliers and data not of interest, merging spreadsheets to create the target dataset to apply Machine Learning
 
 ---
 
 2. Create Public Holiday Final.ipynb
-- Loading downloaded html file from website
-- Data cleaning: selecting columns, building dataframes (using Pandas), manipulating column names
-- Merging data from different years to form final public holiday data
+- Loaded downloaded html file from website
+- Data cleaning: selecting columns, building dataframes (using Pandas), manipulating column names, merging data from different years to form final public holiday data
 
 ---
 
 3. Daily Sales Supervised ML with Dupe Dates.ipynb (analysing how public holiday, store subcluster, weather and historical sales data influence sales with multiple supervised ML models)
-- Loading dataset created from 1.
 - Data cleaning: labelling categories and applying labelencoder(), ensuring data in specific columns have the correct dtypes, spliting columns into "features" and "target"
 - Implemented supervised ML models (Polynomial regression, XGBoost Regressor, LightGBM, Feed Forward Neural Network)
 *used train_test_split() on dataset, fit the models and compared model predictions to testing data -> analysing evaluation metrics, implementing GridSearchCV for hyperparameter tuning -> showing how much it improved the model, plot feature importance table and used it to eliminate zero-importance columns, built an Embedding and Dense Model, implemented regularisation techniques such as ReduceLROnPlateau() and EarlyStopping(), Plotted a Loss Curve Plot that compares training with validation loss
@@ -30,24 +32,31 @@
 
 ---
 
-5. Data for LSTM Model FINAL.ipynb - Jupyter notebook to create the data for the LSTM model
-- 🔵 Subcluster data: "Master Store Subcluster" in Lakehouse -> AI_Sandbox -> LH_External_Data -> tables
-- 🔵 Daily Sales data: "Daily Sales - Store & VM" in Lakehouse -> AI_Sandbox -> LH_External_Data -> tables
-- 🟢 Weather data: can scrape using "Scrape Weather FINAL.ipynb" in this repo
-- 🔵 🔴 Public Holiday data: "PH for non-PH" in Microsoft Teams Planner "FM OPS BI" under "Sales Forecasting"
-- Need to set where does the code keep output file "Data for LSTM model.csv".
+5. Data for LSTM Model FINAL.ipynb 
+- Data cleaning: selecting and renaming columns, checking correct dtypes, filtering outliers, manipulating data to fit desired format, merging dataframes (e.g sales to store data)
 
 ---
 
-6. HOURLY Sales Weather Project FINAL.ipynb - Jupyter notebook to calculate daily correlation between sales and weather with a few ML models
-- 🔵 Store data: "Master Store" in Lakehouse -> AI_Sandbox -> LH_External_Data -> tables
-- 🔵 Hourly Sales data: (I filtered out only May 2025 data from "Hourly Sales - Store & VM" in Lakehouse -> AI_Sandbox -> LH_External_Data -> tables)
-- 🟢 Weather data: can scrape using "Scrape Weather FINAL.ipynb" in this repo
+6. HOURLY Sales Weather Project FINAL.ipynb - Calculate daily correlation between sales and weather with a few ML models
+- Data cleaning: loading and parsing data, filtering outliers, manipulating data to desired format, merging dataframes
+- Calculated correlation between hourly sales and weather data
+- Implemented one hot encoding for weather code and created a correlation matrix
+- Implemented linear regression models and brief comparison to other regression models such as ridge, lasso, elasticnet, as well as experimented with XGBoost
+*train_test_split(), implemented a standardscaler() to standardise numerical features
 
 ---
 
-7. LSTM Final Model.ipynb - Jupyter notebook to create LSTM and make forecast more about it below.
-- 🟢 df: can create using 5. "Data for LSTM Model FINAL.ipynb" in this repo OR 🔵 "Data for LSTM model.csv" in Microsoft Teams Planner "FM OPS BI" under "Sales Forecasting"
+7. LSTM Final Model.ipynb - using weather, store, public holiday, and historical sales data to predict future sales data
+- separated catagories into "time-varying + categorical", "static + categorical" and "numeric"
+- encoded static categorical columns to be embedded into the model and separated time-varying columns (to be created into binary flags and treated as numerical values)
+- scaled continuous (numerical) features
+- built sequences for LSTM, selecting a 14 day window size and a time-aware train-validation data split
+- built the LSTM model with embeddings and a 2-layer MLP on static factors
+- plotted training curves and analysing evaluation metrics (MAE, RMSE, R2)
+- generated 200 "forecast" sales values and compared it against testing data
+- created and plotted 2 permutation feature importance tables for the 2 output variables (sales)
+- created 200-step autoregressive forecasts, displayed with library "Plotly"
+- created accurate 3-week store-specific forecasts with an interactive dashboard displayed with library "ipywidgets"
 
 ---
 
