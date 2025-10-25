@@ -8,6 +8,7 @@
 2. [Daily Sales Supervised ML Studies](#Daily-Sales-Supervised-ML-Studies)
 3. [Daily Sales and Weather Studies](#Daily-Sales-and-Weather-Studies)
 4. [Hourly Sales and Weather Studies](#Hourly-Sales-and-Weather-Studies)
+5. [What I Built and Learned (Summary)](#What-I-Built-and-Learned-(Summary))
 
 ---
 
