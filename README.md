@@ -100,7 +100,7 @@
 
 # 📈 Sales Forecasting with Multi‑Input LSTM
 
-> **Accurate 14‑day window sales & transaction forecasts for FamilyMart Stores, powered by TensorFlow/Keras, categorical embeddings & residual static context.**
+> **Accurate 14‑day window sales & transaction forecasts for stores, powered by TensorFlow/Keras, categorical embeddings & residual static context.**
 
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15-lightgrey)
