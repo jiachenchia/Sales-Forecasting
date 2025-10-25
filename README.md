@@ -577,7 +577,7 @@ For both **Net\_Amount** and **TC** the scripts print:
 <a id="summary"></a>
 # What I Built & Learned (Summary)
 
-> **End-to-end retail forecasting**: integrated sales, store attributes, public holidays, and Open-Meteo weather to deliver **store-level 3-week forecasts**, baselines, ablations, and reproducible data pipelines.
+> **End-to-end retail forecasting**: integrated sales, store attributes, public holidays, and Open-Meteo weather to deliver **store-level 3-week forecasts**, baselines, documented model variants, and reproducible data pipelines.
 
 ![Python](https://img.shields.io/badge/python-3.9%2B-blue)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15-lightgrey)
@@ -595,7 +595,7 @@ For both **Net\_Amount** and **TC** the scripts print:
 - **Supervised baselines & tuning** – Trained Polynomial/Linear models, **XGBoost**, **LightGBM**, and a Feed-Forward NN; `train_test_split`, `GridSearchCV`, regularization (**ReduceLROnPlateau**, **EarlyStopping**); pruned features via importance; established baseline metrics (*numbers redacted for privacy*).
 - **Sequence feature design** – Partitioned features into **time-varying categoricals**, **static categoricals (entity embeddings)**, and **continuous**; applied `StandardScaler`; engineered a **14-day input window** with a **time-aware** train/validation split.
 - **LSTM forecasting (flagship)** – LSTM + 2-layer MLP for static context; **200-step autoregressive** forecasts; tracked **MAE/RMSE/R²**; delivered **store-level 3-week forecasts** with interactive **Plotly + ipywidgets** dashboards and **permutation feature importance** for interpretability.
-- **Ablations & negative results (rigor)** – Optuna HPO, categorical-as-numeric trials, PFI-guided column removals, **tiled static embeddings across time**, and **static-initialized LSTM state** — documented when they **did not** beat the tuned baseline.
+- **Different model variants & negative results (rigor)** – Optuna HPO, categorical-as-numeric trials, PFI-guided column removals, **tiled static embeddings across time**, and **static-initialized LSTM state** — documented when they **did not** beat the tuned baseline.
 - **Inference & handoff** – Saved a deployable Keras model (`.h5`) and an **inference-only** notebook to generate forecasts without retraining; clearly separated private vs. reproducible steps.
 
 ---
@@ -612,8 +612,8 @@ For both **Net\_Amount** and **TC** the scripts print:
 
 ## Reproducibility & Data Access
 
-- **Public & reproducible**: full **weather scraping** pipeline (Open-Meteo) and preprocessing logic.
-- **Private data**: company sales/store data are excluded; notebooks retain code paths with placeholders so reviewers can audit engineering steps.
+- **Public & reproducible**: full **weather scraping** pipeline (Open-Meteo) and preprocessing logic, downloaded HTML of public holiday data available online
+- **Private data**: sales/store data are excluded; notebooks retain code paths with placeholders so reviewers can audit engineering steps.
 - **Environment**: versions pinned in `requirements.txt` (see project sections above).
 
 ---
