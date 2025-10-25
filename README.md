@@ -620,10 +620,6 @@ For both **Net\_Amount** and **TC** the scripts print:
 
 ## Lessons & Decisions
 
-## Lessons & Decisions
-
-## Lessons & Decisions
-
 - **Standalone predictors** seldom dominate the signal; robust performance depends on **multi-modal inputs**.
 - Use **time-aware splits per store** for time series modelling; **random splits** will **inflate** scores via **leakage**.
 - **Compact, focused hyperparameter searches** with **learning-rate scheduling** and **early stopping** achieved results faster than broad **Optuna** sweeps.
