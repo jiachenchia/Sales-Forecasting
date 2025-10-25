@@ -60,9 +60,12 @@
 
 ---
 
-8. LSTM-tested-features - all of the features that I have tested that did not make the final model
-- 🟢 df: can create using "5. Data for LSTM Model FINAL.ipynb" in this repo OR 🔵 "Data for LSTM model.csv" in Microsoft Teams Planner "FM OPS BI" under "Sales Forecasting"
-- Need to set where does the code keep output file "Sales_Forecasting_LSTM_Model.h5".
+8. LSTM-tested-features - some features tested that did not improve the model (in no particular order)
+- treated categorical input as "regular" numerical input without MLP (context)
+- ran Optuna multiple times to search for the best hyperparameters of the model, these few were worse than original
+- took the final model with MLP and replaced hyperparameters with the best Optuna ones
+- removed columns (evident from previous project PFI tables) that did not impact the model much
+- added tile static embeddings into every time step and used static data to set the LSTM's initial state, to target static features being less impactful (evident in PFI tables)
 
 ---
 
@@ -70,20 +73,19 @@
 
 ---
 
-10. Scrape Weather FINAL.ipynb - Jupyter notebook to scrape weather data from the internet
-Do not need any data files, but need to set directory - where the code gets "Master Store.csv" file and where the code keeps final "Weather Data Updated.csv" file.
+10. Scrape Weather FINAL.ipynb - scraping weather data from the internet
+- created a dictionary to translate website "Open-Meteo"'s weather codes into interpretable text
+- created a core function to fetch and assemble hourly weather for each store's location
 
 ---
 
-11. Time series.ipynb - Jupyter notebook to categories Public Holiday into categories
-- 🔵 "Master Weather + Store Subcluster + Holiday + Sales" csv file in Lakehouse -> AI_Sandbox -> LH_External_Data -> files
-- 🔵 Daily Sales data: "Daily Sales - Store & VM" in Lakehouse -> AI_Sandbox -> LH_External_Data -> tables
+11. Time series.ipynb - to create data for time series analyses
+- data cleaning: categorising public holidays, clearing any outlier/duplicates
+- used a "groupby()" function to repopulate all data points with daily sales data
 
 ---
 
-12. Running LSTM without retraining model.ipynb - Jupyter notebook to run my current model without retraining another LSTM model (to make predictions/forecasting)
-- 🔵 Under 9. "Sales_Forecasting_LSTM_Model.h5" in this repo
-- 🟢 df: can create using 5. "Data for LSTM Model FINAL.ipynb" in this repo OR 🔵 "Data for LSTM model.csv" in Microsoft Teams Planner "FM OPS BI" under "Sales Forecasting"
+12. Running LSTM without retraining model.ipynb - to run my current model without retraining another LSTM model (to make predictions/forecasting)
 
 ---
 
