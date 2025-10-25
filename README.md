@@ -2,29 +2,13 @@
 
  --- 
 
-# 4 Main Projects:
+# 4 Main Projects and Takeaways:
 
 1. [📈 Sales Forecasting with Multi-Input LSTM](#sales-forecasting-lstm)
 2. [Daily Sales Supervised ML Studies](#daily-sales-supervised-ml-studies)
 3. [Daily Sales and Weather Studies](#daily-sales-weather)
 4. [Hourly Sales & Weather Studies](#hourly-sales-weather)
 5. [What I Built & Learned (Summary)](#summary)
-
-<!-- === anchors === -->
-
-
-<a id="daily-sales-supervised-ml-studies"></a>
-# Daily Sales Supervised ML Studies
-
-<a id="daily-sales-weather"></a>
-# Daily Sales and Weather Studies
-
-<a id="hourly-sales-weather"></a>
-# Hourly Sales & Weather Studies
-
-<a id="summary"></a>
-# What I Built & Learned (Summary)
-
 
 ---
 
@@ -163,7 +147,8 @@ After training, the script prints:
 
 ```
 
-# Daily Sales Supervised ML studies
+<a id="daily-sales-supervised-ml-studies"></a>
+# Daily Sales Supervised ML Studies
 
 > Multimodel experiments (Polynomial Regression, XGBoost, LightGBM & Feed‑Forward NN) to predict **Daily Net Amount (RM)** and **Transaction Count (TC)** from store data, public‑holiday data and local weather data.
 
@@ -338,8 +323,8 @@ lightgbm>=4.2
 ├── README.md                 
 .
 ```
-
-# Daily Sales & Weather Studies
+<a id="daily-sales-weather"></a>
+# Daily Sales and Weather Studies
 
 > Exploring how **local weather (rain & temperature)** influences store‑level daily sales in May 2025, then benchmarking several regressors (XGBoost & Neural Networks) to predict Net Amount (RM) and Transaction Count (TC).
 
@@ -462,6 +447,7 @@ Each script/notebook prints for **Net Amount & TC**:
 
 ```
 
+<a id="hourly-sales-weather"></a>
 # Hourly Sales & Weather Studies
 
 > Investigating how temperature and detailed weather codes influence **hour‑by‑hour** Net Amount (RM) and transaction counts (TC) across different stores, then benchmarking linear models and XGBoost.
@@ -588,6 +574,7 @@ For both **Net\_Amount** and **TC** the scripts print:
 
 ---
 
+<a id="summary"></a>
 # What I Built & Learned (Summary)
 
 > **End-to-end retail forecasting**: integrated sales, store attributes, public holidays, and Open-Meteo weather to deliver **store-level 3-week forecasts**, baselines, ablations, and reproducible data pipelines.
