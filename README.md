@@ -620,9 +620,17 @@ For both **Net\_Amount** and **TC** the scripts print:
 
 ## Lessons & Decisions
 
-- Weather improves models but **cannot** explain most variance alone → multi-modal features required.
-- Entity-aware LSTM with static embeddings + residual MLP is robust; several static-aware tweaks and HPO **did not** surpass the tuned baseline.
-- Clear separation of **training vs inference** simplifies handoff and reproducibility.
+## Lessons & Decisions
+
+## Lessons & Decisions
+
+- **Standalone predictors** seldom dominate the signal; robust performance depends on **multi-modal inputs**.
+- Use **time-aware splits per store** for time series modelling; **random splits** will **inflate** scores via **leakage**.
+- **Compact, focused hyperparameter searches** with **learning-rate scheduling** and **early stopping** achieved results faster than broad **Optuna** sweeps.
+- **Permutation Feature Importance (PFI)** should steer **selective feature removal**, not **broad elimination**.
+- Treat categoricals as **embeddings** (static) and **flags** (time-varying); keep numerics **standardised**; avoid **aggregates computed beyond the prediction cutoff**.
+- **Communicate uncertainty**: **200-step autoregression** shows error growth; prefer **shorter horizons** or **prediction bands** for decisions.
+- Simple visualisations such as **Plotly/ipywidgets** (store-level **3-week outlook**, **errors**, **importance**) drove adoption and are preferred over raw metrics for stakeholders.
 
 ---
 
