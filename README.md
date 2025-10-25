@@ -4,11 +4,28 @@
 
 # 4 Main Projects:
 
-1. [📈 Sales Forecasting with Multi-Input LSTM](#sales-forecasting-with-multi-input-lstm)
+1. [📈 Sales Forecasting with Multi-Input LSTM](#sales-forecasting-lstm)
 2. [Daily Sales Supervised ML Studies](#daily-sales-supervised-ml-studies)
-3. [Daily Sales & Weather Studies](#daily-sales--weather-studies)
-4. [Hourly Sales & Weather Studies](#hourly-sales--weather-studies)
-5. [What I Built & Learned (Summary)](#what-i-built--learned-summary)
+3. [Daily Sales and Weather Studies](#daily-sales-weather)
+4. [Hourly Sales & Weather Studies](#hourly-sales-weather)
+5. [What I Built & Learned (Summary)](#summary)
+
+<!-- === anchors === -->
+<a id="sales-forecasting-lstm"></a>
+# 📈 Sales Forecasting with Multi-Input LSTM
+
+<a id="daily-sales-supervised-ml-studies"></a>
+# Daily Sales Supervised ML Studies
+
+<a id="daily-sales-weather"></a>
+# Daily Sales and Weather Studies
+
+<a id="hourly-sales-weather"></a>
+# Hourly Sales & Weather Studies
+
+<a id="summary"></a>
+# What I Built & Learned (Summary)
+
 
 ---
 
