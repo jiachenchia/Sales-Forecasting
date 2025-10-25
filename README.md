@@ -584,7 +584,7 @@ For both **Net\_Amount** and **TC** the scripts print:
 
 ## Highlights (Outcomes First)
 
-- **Data integration & cleaning** – Built an ML-ready table by merging sales, store metadata, public holidays, and **hourly weather**; enforced dtypes, handled outliers, standardized schemas (pandas).
+- **Data integration & cleaning** – Built an ML-ready table by merging sales, store data, public holidays, and **hourly weather**; enforced dtypes, handled outliers, standardized schemas (pandas).
 - **Reproducible external data** – Implemented an **Open-Meteo** pipeline with on-disk caching + retries; mapped WMO weather codes to readable labels; generated **timezone-aware** per-store hourly series.
 - **Exploration (daily & hourly)** – Quantified sales–weather relationships; handled **class imbalance** (SMOTE 13:1); produced clear correlation visuals and concluded **weather alone is insufficient** to explain sales variance.
 - **Supervised baselines & tuning** – Trained Polynomial/Linear models, **XGBoost**, **LightGBM**, and a Feed-Forward NN; `train_test_split`, `GridSearchCV`, regularization (**ReduceLROnPlateau**, **EarlyStopping**); pruned features via importance; established baseline metrics (*numbers redacted for privacy*).
