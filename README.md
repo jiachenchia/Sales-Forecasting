@@ -2,13 +2,67 @@
 
  --- 
 
-# 4 Main Projects and Takeaways:
+# What I Built & Learned (Summary)
+
+> **End-to-end retail forecasting**: integrated sales, store attributes, public holidays, and Open-Meteo weather to deliver **store-level 3-week forecasts**, baselines, documented model variants, and reproducible data pipelines.
+
+![Python](https://img.shields.io/badge/python-3.9%2B-blue)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15-lightgrey)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3%2B-orange)
+![XGBoost](https://img.shields.io/badge/XGBoost-2.x-brightgreen)
+![LightGBM](https://img.shields.io/badge/LightGBM-4.x-yellowgreen)
+
+---
+
+## Highlights (Outcomes First)
+
+- **Data integration & cleaning** – Built an ML-ready table by merging sales, store data, public holidays, and **hourly weather**; enforced dtypes, handled outliers, standardized schemas (pandas).
+- **Reproducible external data** – Implemented an **Open-Meteo** pipeline with on-disk caching + retries; mapped WMO weather codes to readable labels; generated **timezone-aware** per-store hourly series.
+- **Exploration (daily & hourly)** – Quantified sales–weather relationships; handled **class imbalance** (SMOTE 13:1); produced clear correlation visuals and concluded **weather alone is insufficient** to explain sales variance.
+- **Supervised baselines & tuning** – Trained Polynomial/Linear models, **XGBoost**, **LightGBM**, and a Feed-Forward NN; `train_test_split`, `GridSearchCV`, regularization (**ReduceLROnPlateau**, **EarlyStopping**); pruned features via importance; established baseline metrics (*numbers redacted for privacy*).
+- **Sequence feature design** – Partitioned features into **time-varying categoricals**, **static categoricals (entity embeddings)**, and **continuous**; applied `StandardScaler`; engineered a **14-day input window** with a **time-aware** train/validation split.
+- **LSTM forecasting (flagship)** – LSTM + 2-layer MLP for static context; **200-step autoregressive** forecasts; tracked **MAE/RMSE/R²**; delivered **store-level 3-week forecasts** with interactive **Plotly + ipywidgets** dashboards and **permutation feature importance** for interpretability.
+- **Different model variants & negative results (rigor)** – Optuna HPO, categorical-as-numeric trials, PFI-guided column removals, **tiled static embeddings across time**, and **static-initialized LSTM state** — documented when they **did not** beat the tuned baseline.
+- **Inference & handoff** – Saved a deployable Keras model (`.h5`) and an **inference-only** notebook to generate forecasts without retraining; clearly separated private vs. reproducible steps.
+
+---
+
+## Techniques & Tooling
+
+- **ML/DL**: LSTM (TensorFlow/Keras), FFNN, XGBoost, LightGBM, Linear/Ridge/Lasso/ElasticNet, **Permutation Feature Importance**
+- **Feature engineering**: categorical **embeddings**, one-hot weather codes, static vs time-varying partitions, binary event flags, sliding-window sequences
+- **Training**: `EarlyStopping`, `ReduceLROnPlateau`, `GridSearchCV`, Optuna trials
+- **Data**: pandas pipelines, dtype enforcement, outlier filtering, **SMOTE** (imbalance), timezone conversion
+- **Viz & UX**: Plotly charts, interactive **ipywidgets** dashboard
+
+---
+
+## Reproducibility & Data Access
+
+- **Public & reproducible**: full **weather scraping** pipeline (Open-Meteo) and preprocessing logic, downloaded HTML of public holiday data available online
+- **Private data**: sales/store data are excluded; notebooks retain code paths with placeholders so reviewers can audit engineering steps.
+- **Environment**: versions pinned in `requirements.txt` (see project sections above).
+
+---
+
+## Lessons & Decisions
+
+- **Standalone predictors** seldom dominate the signal; robust performance depends on **multi-modal inputs**.
+- Use **time-aware splits per store** for time series modelling; **random splits** will **inflate** scores via **leakage**.
+- **Compact, focused hyperparameter searches** with **learning-rate scheduling** and **early stopping** achieved results faster than broad **Optuna** sweeps.
+- **Permutation Feature Importance (PFI)** should steer **selective feature removal**, not **broad elimination**.
+- Treat categoricals as **embeddings** (static) and **flags** (time-varying); keep numerics **standardised**; avoid **aggregates computed beyond the prediction cutoff**.
+- **Communicate uncertainty**: **200-step autoregression** shows error growth; prefer **shorter horizons** or **prediction bands** for decisions.
+- Simple visualisations such as **Plotly/ipywidgets** (store-level **3-week outlook**, **errors**, **importance**) drove adoption and are preferred over raw metrics for stakeholders.
+
+---
+
+# 4 Main Projects:
 
 1. [📈 Sales Forecasting with Multi-Input LSTM](#sales-forecasting-lstm)
 2. [Daily Sales Supervised ML Studies](#daily-sales-supervised-ml-studies)
 3. [Daily Sales and Weather Studies](#daily-sales-weather)
 4. [Hourly Sales & Weather Studies](#hourly-sales-weather)
-5. [What I Built & Learned (Summary)](#summary)
 
 ---
 
@@ -571,62 +625,3 @@ For both **Net\_Amount** and **TC** the scripts print:
 └── README.md
 
 ```
-
----
-
-<a id="summary"></a>
-# What I Built & Learned (Summary)
-
-> **End-to-end retail forecasting**: integrated sales, store attributes, public holidays, and Open-Meteo weather to deliver **store-level 3-week forecasts**, baselines, documented model variants, and reproducible data pipelines.
-
-![Python](https://img.shields.io/badge/python-3.9%2B-blue)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15-lightgrey)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3%2B-orange)
-![XGBoost](https://img.shields.io/badge/XGBoost-2.x-brightgreen)
-![LightGBM](https://img.shields.io/badge/LightGBM-4.x-yellowgreen)
-
----
-
-## Highlights (Outcomes First)
-
-- **Data integration & cleaning** – Built an ML-ready table by merging sales, store data, public holidays, and **hourly weather**; enforced dtypes, handled outliers, standardized schemas (pandas).
-- **Reproducible external data** – Implemented an **Open-Meteo** pipeline with on-disk caching + retries; mapped WMO weather codes to readable labels; generated **timezone-aware** per-store hourly series.
-- **Exploration (daily & hourly)** – Quantified sales–weather relationships; handled **class imbalance** (SMOTE 13:1); produced clear correlation visuals and concluded **weather alone is insufficient** to explain sales variance.
-- **Supervised baselines & tuning** – Trained Polynomial/Linear models, **XGBoost**, **LightGBM**, and a Feed-Forward NN; `train_test_split`, `GridSearchCV`, regularization (**ReduceLROnPlateau**, **EarlyStopping**); pruned features via importance; established baseline metrics (*numbers redacted for privacy*).
-- **Sequence feature design** – Partitioned features into **time-varying categoricals**, **static categoricals (entity embeddings)**, and **continuous**; applied `StandardScaler`; engineered a **14-day input window** with a **time-aware** train/validation split.
-- **LSTM forecasting (flagship)** – LSTM + 2-layer MLP for static context; **200-step autoregressive** forecasts; tracked **MAE/RMSE/R²**; delivered **store-level 3-week forecasts** with interactive **Plotly + ipywidgets** dashboards and **permutation feature importance** for interpretability.
-- **Different model variants & negative results (rigor)** – Optuna HPO, categorical-as-numeric trials, PFI-guided column removals, **tiled static embeddings across time**, and **static-initialized LSTM state** — documented when they **did not** beat the tuned baseline.
-- **Inference & handoff** – Saved a deployable Keras model (`.h5`) and an **inference-only** notebook to generate forecasts without retraining; clearly separated private vs. reproducible steps.
-
----
-
-## Techniques & Tooling
-
-- **ML/DL**: LSTM (TensorFlow/Keras), FFNN, XGBoost, LightGBM, Linear/Ridge/Lasso/ElasticNet, **Permutation Feature Importance**
-- **Feature engineering**: categorical **embeddings**, one-hot weather codes, static vs time-varying partitions, binary event flags, sliding-window sequences
-- **Training**: `EarlyStopping`, `ReduceLROnPlateau`, `GridSearchCV`, Optuna trials
-- **Data**: pandas pipelines, dtype enforcement, outlier filtering, **SMOTE** (imbalance), timezone conversion
-- **Viz & UX**: Plotly charts, interactive **ipywidgets** dashboard
-
----
-
-## Reproducibility & Data Access
-
-- **Public & reproducible**: full **weather scraping** pipeline (Open-Meteo) and preprocessing logic, downloaded HTML of public holiday data available online
-- **Private data**: sales/store data are excluded; notebooks retain code paths with placeholders so reviewers can audit engineering steps.
-- **Environment**: versions pinned in `requirements.txt` (see project sections above).
-
----
-
-## Lessons & Decisions
-
-- **Standalone predictors** seldom dominate the signal; robust performance depends on **multi-modal inputs**.
-- Use **time-aware splits per store** for time series modelling; **random splits** will **inflate** scores via **leakage**.
-- **Compact, focused hyperparameter searches** with **learning-rate scheduling** and **early stopping** achieved results faster than broad **Optuna** sweeps.
-- **Permutation Feature Importance (PFI)** should steer **selective feature removal**, not **broad elimination**.
-- Treat categoricals as **embeddings** (static) and **flags** (time-varying); keep numerics **standardised**; avoid **aggregates computed beyond the prediction cutoff**.
-- **Communicate uncertainty**: **200-step autoregression** shows error growth; prefer **shorter horizons** or **prediction bands** for decisions.
-- Simple visualisations such as **Plotly/ipywidgets** (store-level **3-week outlook**, **errors**, **importance**) drove adoption and are preferred over raw metrics for stakeholders.
-
----
-
