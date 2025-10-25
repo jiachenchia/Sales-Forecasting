@@ -568,11 +568,6 @@ For both **Net\_Amount** and **TC** the scripts print:
 
 ```
 
----
-
- Key Libraries used:
- - pandas, numpy, scikit learn
-
  ---
  
 1. Create Master Weather + Store Subcluster + Holiday + Sales.ipynb
