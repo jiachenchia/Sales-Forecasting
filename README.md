@@ -11,8 +11,7 @@
 5. [What I Built & Learned (Summary)](#summary)
 
 <!-- === anchors === -->
-<a id="sales-forecasting-lstm"></a>
-# 📈 Sales Forecasting with Multi-Input LSTM
+
 
 <a id="daily-sales-supervised-ml-studies"></a>
 # Daily Sales Supervised ML Studies
@@ -29,7 +28,8 @@
 
 ---
 
-# 📈 Sales Forecasting with Multi‑Input LSTM
+<a id="sales-forecasting-lstm"></a>
+# 📈 Sales Forecasting with Multi-Input LSTM
 
 > **Accurate 14‑day window sales & transaction forecasts for stores, powered by TensorFlow/Keras, categorical embeddings & residual static context.**
 
