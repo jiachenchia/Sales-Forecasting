@@ -568,85 +568,56 @@ For both **Net\_Amount** and **TC** the scripts print:
 
 ```
 
- ---
- 
-1. Create Master Weather + Store Subcluster + Holiday + Sales.ipynb
-- Data cleaning: selecting and renaming columns, ensuring that columns have the correct format and dtypes, filtering out outliers and data not of interest, merging spreadsheets to create the target dataset to apply Machine Learning
+---
+
+# What I Built & Learned (Summary)
+
+> **End-to-end retail forecasting**: integrated sales, store attributes, public holidays, and Open-Meteo weather to deliver **store-level 3-week forecasts**, baselines, ablations, and reproducible data pipelines.
+
+![Python](https://img.shields.io/badge/python-3.9%2B-blue)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15-lightgrey)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3%2B-orange)
+![XGBoost](https://img.shields.io/badge/XGBoost-2.x-brightgreen)
+![LightGBM](https://img.shields.io/badge/LightGBM-4.x-yellowgreen)
 
 ---
 
-2. Create Public Holiday Final.ipynb
-- Loaded downloaded html file from website
-- Data cleaning: selecting columns, building dataframes (using Pandas), manipulating column names, merging data from different years to form final public holiday data
+## Highlights (Outcomes First)
+
+- **Data integration & cleaning** – Built an ML-ready table by merging sales, store metadata, public holidays, and **hourly weather**; enforced dtypes, handled outliers, standardized schemas (pandas).
+- **Reproducible external data** – Implemented an **Open-Meteo** pipeline with on-disk caching + retries; mapped WMO weather codes to readable labels; generated **timezone-aware** per-store hourly series.
+- **Exploration (daily & hourly)** – Quantified sales–weather relationships; handled **class imbalance** (SMOTE 13:1); produced clear correlation visuals and concluded **weather alone is insufficient** to explain sales variance.
+- **Supervised baselines & tuning** – Trained Polynomial/Linear models, **XGBoost**, **LightGBM**, and a Feed-Forward NN; `train_test_split`, `GridSearchCV`, regularization (**ReduceLROnPlateau**, **EarlyStopping**); pruned features via importance; established baseline metrics (*numbers redacted for privacy*).
+- **Sequence feature design** – Partitioned features into **time-varying categoricals**, **static categoricals (entity embeddings)**, and **continuous**; applied `StandardScaler`; engineered a **14-day input window** with a **time-aware** train/validation split.
+- **LSTM forecasting (flagship)** – LSTM + 2-layer MLP for static context; **200-step autoregressive** forecasts; tracked **MAE/RMSE/R²**; delivered **store-level 3-week forecasts** with interactive **Plotly + ipywidgets** dashboards and **permutation feature importance** for interpretability.
+- **Ablations & negative results (rigor)** – Optuna HPO, categorical-as-numeric trials, PFI-guided column removals, **tiled static embeddings across time**, and **static-initialized LSTM state** — documented when they **did not** beat the tuned baseline.
+- **Inference & handoff** – Saved a deployable Keras model (`.h5`) and an **inference-only** notebook to generate forecasts without retraining; clearly separated private vs. reproducible steps.
 
 ---
 
-3. Daily Sales Supervised ML with Dupe Dates.ipynb (analysing how public holiday, store subcluster, weather and historical sales data influence sales with multiple supervised ML models)
-- Data cleaning: labelling categories and applying labelencoder(), ensuring data in specific columns have the correct dtypes, spliting columns into "features" and "target"
-- Implemented supervised ML models (Polynomial regression, XGBoost Regressor, LightGBM, Feed Forward Neural Network)
-*used train_test_split() on dataset, fit the models and compared model predictions to testing data -> analysing evaluation metrics, implementing GridSearchCV for hyperparameter tuning -> showing how much it improved the model, plot feature importance table and used it to eliminate zero-importance columns, built an Embedding and Dense Model, implemented regularisation techniques such as ReduceLROnPlateau() and EarlyStopping(), Plotted a Loss Curve Plot that compares training with validation loss
+## Techniques & Tooling
+
+- **ML/DL**: LSTM (TensorFlow/Keras), FFNN, XGBoost, LightGBM, Linear/Ridge/Lasso/ElasticNet, **Permutation Feature Importance**
+- **Feature engineering**: categorical **embeddings**, one-hot weather codes, static vs time-varying partitions, binary event flags, sliding-window sequences
+- **Training**: `EarlyStopping`, `ReduceLROnPlateau`, `GridSearchCV`, Optuna trials
+- **Data**: pandas pipelines, dtype enforcement, outlier filtering, **SMOTE** (imbalance), timezone conversion
+- **Viz & UX**: Plotly charts, interactive **ipywidgets** dashboard
 
 ---
 
-4. DAILY Sales Weather Project.ipynb - Calculate daily correlation between sales and weather with a few ML models
-- Data cleaning: filtering outliers, manipulating store data, implementing SMOTE (to address 13:1 disproportional data), merging dataframes
-- Created a correlation chart with a conclusion
-- Experimented with ML models such as XGBoost and a first attempt of a Multi Layer Perceptrons Neural Network (which was clearly underfitting - led me to believe that weather was insufficient to predict sales data)
+## Reproducibility & Data Access
+
+- **Public & reproducible**: full **weather scraping** pipeline (Open-Meteo) and preprocessing logic.
+- **Private data**: company sales/store data are excluded; notebooks retain code paths with placeholders so reviewers can audit engineering steps.
+- **Environment**: versions pinned in `requirements.txt` (see project sections above).
 
 ---
 
-5. Data for LSTM Model FINAL.ipynb 
-- Data cleaning: selecting and renaming columns, checking correct dtypes, filtering outliers, manipulating data to fit desired format, merging dataframes (e.g sales to store data)
+## Lessons & Decisions
+
+- Weather improves models but **cannot** explain most variance alone → multi-modal features required.
+- Entity-aware LSTM with static embeddings + residual MLP is robust; several static-aware tweaks and HPO **did not** surpass the tuned baseline.
+- Clear separation of **training vs inference** simplifies handoff and reproducibility.
 
 ---
-
-6. HOURLY Sales Weather Project FINAL.ipynb - Calculate daily correlation between sales and weather with a few ML models
-- Data cleaning: loading and parsing data, filtering outliers, manipulating data to desired format, merging dataframes
-- Calculated correlation between hourly sales and weather data
-- Implemented one hot encoding for weather code and created a correlation matrix
-- Implemented linear regression models and brief comparison to other regression models such as ridge, lasso, elasticnet, as well as experimented with XGBoost
-*train_test_split(), implemented a standardscaler() to standardise numerical features
-
----
-
-7. LSTM Final Model.ipynb - using weather, store, public holiday, and historical sales data to predict future sales data
-- separated catagories into "time-varying + categorical", "static + categorical" and "numeric"
-- encoded static categorical columns to be embedded into the model and separated time-varying columns (to be created into binary flags and treated as numerical values)
-- scaled continuous (numerical) features
-- built sequences for LSTM, selecting a 14 day window size and a time-aware train-validation data split
-- built the LSTM model with embeddings and a 2-layer MLP on static factors
-- plotted training curves and analysing evaluation metrics (MAE, RMSE, R2)
-- generated 200 "forecast" sales values and compared it against testing data
-- created and plotted 2 permutation feature importance tables for the 2 output variables (sales)
-- created 200-step autoregressive forecasts, displayed with library "Plotly"
-- created accurate 3-week store-specific forecasts with an interactive dashboard displayed with library "ipywidgets"
-
----
-
-8. LSTM-tested-features - some features tested that did not improve the model (in no particular order)
-- treated categorical input as "regular" numerical input without MLP (context)
-- ran Optuna multiple times to search for the best hyperparameters of the model, these few were worse than original
-- took the final model with MLP and replaced hyperparameters with the best Optuna ones
-- removed columns (evident from previous project PFI tables) that did not impact the model much
-- added tile static embeddings into every time step and used static data to set the LSTM's initial state, to target static features being less impactful (evident in PFI tables)
-
----
-
-9. Sales_Forecasting_LSTM_Model.h5 - model that is created when running model in "LSTM Final Model.ipynb"
-
----
-
-10. Scrape Weather FINAL.ipynb - scraping weather data from the internet
-- created a dictionary to translate website "Open-Meteo"'s weather codes into interpretable text
-- created a core function to fetch and assemble hourly weather for each store's location
-
----
-
-11. Time series.ipynb - to create data for time series analyses
-- data cleaning: categorising public holidays, clearing any outlier/duplicates
-- used a "groupby()" function to repopulate all data points with daily sales data
-
----
-
-12. Running LSTM without retraining model.ipynb - to run my current model without retraining another LSTM model (to make predictions/forecasting)
 
